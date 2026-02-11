@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-config
+  namespace: iwouldargue
+data:
+  METADATA_SERVICE_URL: http://metadata-service:8080
+  MEDIA_SERVICE_URL: http://media-service:8080
+  NOTIFICATION_SERVICE_URL: http://notification-service:8080
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metadata-service-config
+  namespace: iwouldargue
+data:
+  CASSANDRA_CONTACT_POINTS: cassandra
+  CASSANDRA_PORT: "9042"
+  CASSANDRA_KEYSPACE_NAME: iwouldargue
+  CASSANDRA_LOCAL_DATACENTER: datacenter1
+  CASSANDRA_SCHEMA_ACTION: CREATE_IF_NOT_EXISTS
+
+  REDIS_HOST: redis-master
+  REDIS_PORT: "6379"
+  REDIS_MASTER: mymaster
+  REDIS_SENTINEL_NODES: redis.iwouldargue.svc.cluster.local:26379
+
+  JWT_EXP_SECONDS: "10800"
+
+  MAX_ATTACHMENT_SIZE: 30MB
+  MAX_REQUEST_SIZE: 35MB
+
+  MEDIA_SERVICE_URL: http://media-service:8080
+  NOTIFICATION_SERVICE_URL: http://notification-service:8080
+  LIVEKIT_URL: http://livekit:7880
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notification-service-config
+  namespace: iwouldargue
+data:
+  PORT: "8000"
+  REDIS_URL: redis-master
+  REDIS_MASTER: mymaster
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: media-service-config
+  namespace: iwouldargue
+data:
+  PORT: "8000"
+  RECORDS_DIR: /var/iwouldargue
+  LIVEKIT_URL: http://livekit:7880
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: livekit-config
+  namespace: iwouldargue
+data:
+  config.yaml: |
+    port: 7880
+    redis:
+      sentinel_addresses:
+        - redis.iwouldargue.svc.cluster.local:26379
+      sentinel_master_name: mymaster

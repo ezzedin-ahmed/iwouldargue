@@ -1,0 +1,17 @@
+replicaCount: 3
+
+persistence:
+  enabled: true
+  size: 100Gi
+
+resources:
+  requests:
+    cpu: "1"
+    memory: "4Gi"
+  limits:
+    cpu: "4"
+    memory: "8Gi"
+
+dbUser:
+  user: admin
+  password: admin

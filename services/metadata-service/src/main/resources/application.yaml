@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: metadata-service
+  cassandra:
+    schema-action: ${CASSANDRA_SCHEMA_ACTION:CREATE_IF_NOT_EXISTS}
+    keyspace-name: ${CASSANDRA_KEYSPACE_NAME:iwouldargue}
+    port: ${CASSANDRA_PORT:9042}
+    contact-points: ${CASSANDRA_CONTACT_POINTS:127.0.0.1}
+    username: ${CASSANDRA_USERNAME:admin}
+    password: ${CASSANDRA_PASSWORD:admin}
+    local-datacenter: ${CASSANDRA_LOCAL_DATACENTER:datacenter1}
+  servlet:
+    multipart:
+      max-file-size: ${MAX_ATTACHMENT_SIZE:30MB}
+      max-request-size: ${MAX_REQUEST_SIZE:35MB}
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD}
+      sentinel:
+        master: ${REDIS_MASTER:mymaster}
+        nodes: ${REDIS_SENTINEL_NODES:localhost:26379}
+auth:
+  jwt:
+    expiration-seconds: ${JWT_EXP_SECONDS:10800}
+    secret-key: ${JWT_SECRET_KEY}
+
+files:
+  saves-dir: /var/iwouldargue
+
+external:
+  media-service-url: ${MEDIA_SERVICE_URL:http://127.0.0.1:8002}
+  notification-service-url: ${NOTIFICATION_SERVICE_URL:http://127.0.0.1:8003}
+  livekit-url: ${LIVEKIT_URL:http://127.0.0.1:7880}

@@ -1,0 +1,19 @@
+architecture: replication
+
+sentinel:
+  enabled: true
+  replicaCount: 3
+  port: 26379
+
+master:
+  persistence:
+    enabled: true
+  service:
+    port: 6379
+
+replica:
+  replicaCount: 1
+  persistence:
+    enabled: false
+  service:
+    port: 6379

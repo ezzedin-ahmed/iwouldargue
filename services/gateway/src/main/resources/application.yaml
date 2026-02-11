@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: gateway
+services:
+  metadata-service-url: ${METADATA_SERVICE_URL:http://localhost:8001}
+  media-service-url: ${MEDIA_SERVICE_URL:http://localhost:8002}
+  notification-service-url:  ${METADATA_SERVICE_URL:http://localhost:8003}
